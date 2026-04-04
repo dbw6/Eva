@@ -1,0 +1,97 @@
+methods:
+  systolic_array:
+    family: dense_array
+    display_name: "SA-A8W8"
+    quantization_bits: 2
+    algorithm: aqlm
+    bitwidths: {activation: 8, weight: 8, output: 8}
+    array: {height: 32, width: 32}
+    tiles: {m: 1024, k: 32, n: 32}
+    buffers: {m: 1024, k: 64, n: 128}
+    extra: {pipeline_overhead_cycles: 0}
+    energy:
+      dram_leak_energy: 4.01232
+      dram_cost_read: 0.01223
+      dram_cost_write: 0.01223
+      core_leak_energy: 1.255250922
+      core_dynamic_energy: 0.0
+      wbuf_read_energy: 0.00001850515625
+      wbuf_write_energy: 0.000040707421875
+      ibuf_read_energy: 0.000119577734375
+      ibuf_write_energy: 0.000133059765625
+      obuf_read_energy: 0.000119577734375
+      obuf_write_energy: 0.000133059765625
+      sram_leak_energy: 2.02948448
+      core_power: 0.627625461
+  ant:
+    family: dense_array
+    display_name: "ANT-A8W8"
+    quantization_bits: 2
+    algorithm: aqlm
+    bitwidths: {activation: 8, weight: 8, output: 8}
+    array: {height: 32, width: 32}
+    tiles: {m: 1024, k: 32, n: 32}
+    buffers: {m: 1024, k: 64, n: 128}
+    extra: {pipeline_overhead_cycles: 2}
+    energy:
+      dram_leak_energy: 4.01232
+      dram_cost_read: 0.01223
+      dram_cost_write: 0.01223
+      core_leak_energy: 3.44431921
+      core_dynamic_energy: 0.0
+      wbuf_read_energy: 0.00001850515625
+      wbuf_write_energy: 0.000040707421875
+      ibuf_read_energy: 0.000119577734375
+      ibuf_write_energy: 0.000133059765625
+      obuf_read_energy: 0.000119577734375
+      obuf_write_energy: 0.000133059765625
+      sram_leak_energy: 2.02948448
+      core_power: 1.722159605
+  figna:
+    family: dense_array
+    display_name: "FIGNA-A16W4"
+    quantization_bits: 2
+    algorithm: aqlm
+    bitwidths: {activation: 16, weight: 4, output: 16}
+    array: {height: 32, width: 32}
+    tiles: {m: 1024, k: 32, n: 32}
+    buffers: {m: 1024, k: 64, n: 64}
+    extra: {pipeline_overhead_cycles: 4}
+    energy:
+      dram_leak_energy: 4.01232
+      dram_cost_read: 0.01223
+      dram_cost_write: 0.01223
+      core_leak_energy: 3.170921258
+      core_dynamic_energy: 0.0
+      wbuf_read_energy: 0.000026060546875
+      wbuf_write_energy: 0.0000429734375
+      ibuf_read_energy: 0.0000846931640625
+      ibuf_write_energy: 0.000154239453125
+      obuf_read_energy: 0.0000846931640625
+      obuf_write_energy: 0.000154239453125
+      sram_leak_energy: 2.02632192
+      core_power: 1.585460629
+  figlut_4:
+    family: figlut
+    display_name: "FIGLUT-A16W4"
+    quantization_bits: 4
+    algorithm: aqlm
+    bitwidths: {activation: 16, output: 16}
+    array: {height: 2, width: 16}
+    tiles: {m_base: 1024, buffer_k_base: 64, buffer_n: 64}
+    buffers: {unused: 0}
+    extra: {mu: 4, k: 8, num_mpu: 4}
+    energy:
+      dram_leak_energy: 4.01232
+      dram_cost_read: 0.01223
+      dram_cost_write: 0.01223
+      core_leak_energy: 6.012316778
+      core_dynamic_energy: 0.0
+      wbuf_read_energy: 0.00001850515625
+      wbuf_write_energy: 0.000040707421875
+      ibuf_read_energy: 0.00006174462890625
+      ibuf_write_energy: 0.0001521748046875
+      obuf_read_energy: 0.00006174462890625
+      obuf_write_energy: 0.0001521748046875
+      sram_leak_energy: 2.04391328
+      core_power: 3.006158389

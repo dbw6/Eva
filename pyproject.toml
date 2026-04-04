@@ -1,0 +1,24 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "eva-simulator"
+version = "0.1.0"
+description = "Artifact-oriented EVA simulator for Figure 9 and future studies."
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+  "PyYAML>=6.0",
+  "datasets",
+  "huggingface_hub",
+  "pandas>=2.0",
+  "matplotlib>=3.7",
+  "nbformat>=5.9",
+  "numpy",
+  "transformers",
+]
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["simulator*"]

@@ -1,0 +1,18 @@
+studies:
+  fig14_index:
+    description: "Compute Fig. 14 index-analysis CSVs directly from the quantized AQLM model."
+    phase: decode
+    ops_mode: fc_only
+    models: []
+    methods: []
+    sequence_lengths: [1]
+    batch_sizes: [1]
+    aggregate_sequence1: false
+    output_subdir: fig14_index
+    extra:
+      aqlm_model_name: "ISTA-DASLab/Llama-2-7b-AQLM-2Bit-2x8-hf"
+      layer_number: 15
+      weight_type: q_proj
+      tile_sizes: [128, 256, 512, 1024, 2048, 4096]
+      histogram_tolerance: 1e-12
+      tile_tolerance: 1e-4

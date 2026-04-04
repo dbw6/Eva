@@ -1,0 +1,24 @@
+studies:
+  table_vii_abl:
+    description: "Reproduce TABLE VII by simulating the ablation speedup rows and using workbook-backed normalized array area."
+    phase: decode
+    ops_mode: fc_only
+    models:
+      - llama_2_7b
+    methods: []
+    sequence_lengths: [1]
+    batch_sizes: [1]
+    aggregate_sequence1: false
+    output_subdir: table_vii_abl
+    extra:
+      aqlm_model_name: "ISTA-DASLab/Llama-2-7b-AQLM-2Bit-2x8-hf"
+      layer_number: 15
+      weight_types: [q_proj, k_proj, v_proj, o_proj, gate_proj, up_proj, down_proj]
+      mem_width: 1024
+      vq_llm_ratio: 0.5
+      eva_eu4_adder_tree_size: 4
+      eva_eu32_adder_tree_size: 32
+      eva_scale_x4_adder_tree_size: 128
+      cycle_tolerance: 512.0
+      speedup_tolerance: 0.05
+      area_tolerance: 1e-12

@@ -1,0 +1,30 @@
+studies:
+  e2e:
+    description: "Reproduce the end-to-end studies for Fig. 12 (LLaMA-2) and Fig. 13 (MoE)."
+    phase: both
+    ops_mode: fc_attention_sfu
+    models: []
+    methods: []
+    sequence_lengths: [1]
+    batch_sizes: [1]
+    aggregate_sequence1: false
+    output_subdir: e2e
+    extra:
+      default_execution_mode: full
+      scenarios:
+        - name: fig12_llama2
+          models: [llama_2_7b]
+          methods: [systolic_array, ant, figna, figlut_4, vqarray_4_decode, vqarray_3_decode, vqarray_2_decode, vqarray_2_gptvq_decode]
+          ops_mode: fc_attention_sfu
+          trace_files:
+            - simulator/traces/dolly_creative_writing_processed.json
+          dataset: dolly_creative_writing
+        - name: fig13_moe
+          models: [mixtral_8x7b, qwen3_30b_a3b]
+          methods: [systolic_array, ant, figna, figlut_4, vqarray_4_decode, vqarray_3_decode, vqarray_2_decode, vqarray_2_gptvq_decode, vqarray_2_decode_kvq]
+          ops_mode: fc_attention_sfu
+          datasets: [arxiv, gsm8k]
+          num_samples: 100
+          dataset_seed: 42
+          target_rps: 1.0
+          moe_stage: stage2

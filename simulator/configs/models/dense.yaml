@@ -1,0 +1,169 @@
+models:
+  llama_7b:
+    display_name: "LLaMA-1 7B"
+    family: "llama_1"
+    kind: "dense"
+    num_layers: 32
+    hidden_size: 4096
+    num_attention_heads: 32
+    num_kv_heads: 32
+    head_dim: 128
+    ops:
+      - {type: sfu, name: sfu_rmsnorm, op_type: rmsnorm, dim: 4096, nbits: 16}
+      - {type: fc, name: fc_q_proj, output_dim: 4096, input_dim: 4096}
+      - {type: fc, name: fc_k_proj, output_dim: 4096, input_dim: 4096}
+      - {type: fc, name: fc_v_proj, output_dim: 4096, input_dim: 4096}
+      - {type: attention, name: attention, dim: 4096, num_attention_heads: 32, num_kv_heads: 32, head_dim: 128}
+      - {type: fc, name: fc_o_proj, output_dim: 4096, input_dim: 4096}
+      - {type: sfu, name: sfu_rmsnorm_2, op_type: rmsnorm, dim: 4096, nbits: 16}
+      - {type: fc, name: fc_gate_proj, output_dim: 11008, input_dim: 4096}
+      - {type: fc, name: fc_up_proj, output_dim: 11008, input_dim: 4096}
+      - {type: sfu, name: sfu_swiglu, op_type: swiglu, dim: 11008, nbits: 16}
+      - {type: fc, name: fc_down_proj, output_dim: 4096, input_dim: 11008}
+  llama_13b:
+    display_name: "LLaMA-1 13B"
+    family: "llama_1"
+    kind: "dense"
+    num_layers: 40
+    hidden_size: 5120
+    num_attention_heads: 40
+    num_kv_heads: 40
+    head_dim: 128
+    ops:
+      - {type: sfu, name: sfu_rmsnorm, op_type: rmsnorm, dim: 5120, nbits: 16}
+      - {type: fc, name: fc_q_proj, output_dim: 5120, input_dim: 5120}
+      - {type: fc, name: fc_k_proj, output_dim: 5120, input_dim: 5120}
+      - {type: fc, name: fc_v_proj, output_dim: 5120, input_dim: 5120}
+      - {type: attention, name: attention, dim: 5120, num_attention_heads: 40, num_kv_heads: 40, head_dim: 128}
+      - {type: fc, name: fc_o_proj, output_dim: 5120, input_dim: 5120}
+      - {type: sfu, name: sfu_rmsnorm_2, op_type: rmsnorm, dim: 5120, nbits: 16}
+      - {type: fc, name: fc_gate_proj, output_dim: 13824, input_dim: 5120}
+      - {type: fc, name: fc_up_proj, output_dim: 13824, input_dim: 5120}
+      - {type: sfu, name: sfu_swiglu, op_type: swiglu, dim: 13824, nbits: 16}
+      - {type: fc, name: fc_down_proj, output_dim: 5120, input_dim: 13824}
+  llama_30b:
+    display_name: "LLaMA-1 30B"
+    family: "llama_1"
+    kind: "dense"
+    num_layers: 60
+    hidden_size: 6656
+    num_attention_heads: 52
+    num_kv_heads: 52
+    head_dim: 128
+    ops:
+      - {type: sfu, name: sfu_rmsnorm, op_type: rmsnorm, dim: 6656, nbits: 16}
+      - {type: fc, name: fc_q_proj, output_dim: 6656, input_dim: 6656}
+      - {type: fc, name: fc_k_proj, output_dim: 6656, input_dim: 6656}
+      - {type: fc, name: fc_v_proj, output_dim: 6656, input_dim: 6656}
+      - {type: attention, name: attention, dim: 6656, num_attention_heads: 52, num_kv_heads: 52, head_dim: 128}
+      - {type: fc, name: fc_o_proj, output_dim: 6656, input_dim: 6656}
+      - {type: sfu, name: sfu_rmsnorm_2, op_type: rmsnorm, dim: 6656, nbits: 16}
+      - {type: fc, name: fc_gate_proj, output_dim: 17920, input_dim: 6656}
+      - {type: fc, name: fc_up_proj, output_dim: 17920, input_dim: 6656}
+      - {type: sfu, name: sfu_swiglu, op_type: swiglu, dim: 17920, nbits: 16}
+      - {type: fc, name: fc_down_proj, output_dim: 6656, input_dim: 17920}
+  llama_65b:
+    display_name: "LLaMA-1 65B"
+    family: "llama_1"
+    kind: "dense"
+    num_layers: 80
+    hidden_size: 8192
+    num_attention_heads: 64
+    num_kv_heads: 64
+    head_dim: 128
+    ops:
+      - {type: sfu, name: sfu_rmsnorm, op_type: rmsnorm, dim: 8192, nbits: 16}
+      - {type: fc, name: fc_q_proj, output_dim: 8192, input_dim: 8192}
+      - {type: fc, name: fc_k_proj, output_dim: 8192, input_dim: 8192}
+      - {type: fc, name: fc_v_proj, output_dim: 8192, input_dim: 8192}
+      - {type: attention, name: attention, dim: 8192, num_attention_heads: 64, num_kv_heads: 64, head_dim: 128}
+      - {type: fc, name: fc_o_proj, output_dim: 8192, input_dim: 8192}
+      - {type: sfu, name: sfu_rmsnorm_2, op_type: rmsnorm, dim: 8192, nbits: 16}
+      - {type: fc, name: fc_gate_proj, output_dim: 22016, input_dim: 8192}
+      - {type: fc, name: fc_up_proj, output_dim: 22016, input_dim: 8192}
+      - {type: sfu, name: sfu_swiglu, op_type: swiglu, dim: 22016, nbits: 16}
+      - {type: fc, name: fc_down_proj, output_dim: 8192, input_dim: 22016}
+  llama_2_7b:
+    display_name: "LLaMA-2 7B"
+    family: "llama_2"
+    kind: "dense"
+    num_layers: 32
+    hidden_size: 4096
+    num_attention_heads: 32
+    num_kv_heads: 32
+    head_dim: 128
+    ops:
+      - {type: sfu, name: sfu_rmsnorm, op_type: rmsnorm, dim: 4096, nbits: 16}
+      - {type: fc, name: fc_q_proj, output_dim: 4096, input_dim: 4096}
+      - {type: fc, name: fc_k_proj, output_dim: 4096, input_dim: 4096}
+      - {type: fc, name: fc_v_proj, output_dim: 4096, input_dim: 4096}
+      - {type: attention, name: attention, dim: 4096, num_attention_heads: 32, num_kv_heads: 32, head_dim: 128}
+      - {type: fc, name: fc_o_proj, output_dim: 4096, input_dim: 4096}
+      - {type: sfu, name: sfu_rmsnorm_2, op_type: rmsnorm, dim: 4096, nbits: 16}
+      - {type: fc, name: fc_gate_proj, output_dim: 11008, input_dim: 4096}
+      - {type: fc, name: fc_up_proj, output_dim: 11008, input_dim: 4096}
+      - {type: sfu, name: sfu_swiglu, op_type: swiglu, dim: 11008, nbits: 16}
+      - {type: fc, name: fc_down_proj, output_dim: 4096, input_dim: 11008}
+  llama_2_13b:
+    display_name: "LLaMA-2 13B"
+    family: "llama_2"
+    kind: "dense"
+    num_layers: 40
+    hidden_size: 5120
+    num_attention_heads: 40
+    num_kv_heads: 40
+    head_dim: 128
+    ops:
+      - {type: sfu, name: sfu_rmsnorm, op_type: rmsnorm, dim: 5120, nbits: 16}
+      - {type: fc, name: fc_q_proj, output_dim: 5120, input_dim: 5120}
+      - {type: fc, name: fc_k_proj, output_dim: 5120, input_dim: 5120}
+      - {type: fc, name: fc_v_proj, output_dim: 5120, input_dim: 5120}
+      - {type: attention, name: attention, dim: 5120, num_attention_heads: 40, num_kv_heads: 40, head_dim: 128}
+      - {type: fc, name: fc_o_proj, output_dim: 5120, input_dim: 5120}
+      - {type: sfu, name: sfu_rmsnorm_2, op_type: rmsnorm, dim: 5120, nbits: 16}
+      - {type: fc, name: fc_gate_proj, output_dim: 13824, input_dim: 5120}
+      - {type: fc, name: fc_up_proj, output_dim: 13824, input_dim: 5120}
+      - {type: sfu, name: sfu_swiglu, op_type: swiglu, dim: 13824, nbits: 16}
+      - {type: fc, name: fc_down_proj, output_dim: 5120, input_dim: 13824}
+  llama3_8b:
+    display_name: "LLaMA-3 8B"
+    family: "llama_3"
+    kind: "dense"
+    num_layers: 32
+    hidden_size: 4096
+    num_attention_heads: 32
+    num_kv_heads: 8
+    head_dim: 128
+    ops:
+      - {type: sfu, name: sfu_rmsnorm, op_type: rmsnorm, dim: 4096, nbits: 16}
+      - {type: fc, name: fc_q_proj, output_dim: 4096, input_dim: 4096}
+      - {type: fc, name: fc_k_proj, output_dim: 1024, input_dim: 4096}
+      - {type: fc, name: fc_v_proj, output_dim: 1024, input_dim: 4096}
+      - {type: attention, name: attention, dim: 4096, num_attention_heads: 32, num_kv_heads: 8, head_dim: 128}
+      - {type: fc, name: fc_o_proj, output_dim: 4096, input_dim: 4096}
+      - {type: sfu, name: sfu_rmsnorm_2, op_type: rmsnorm, dim: 4096, nbits: 16}
+      - {type: fc, name: fc_gate_proj, output_dim: 14336, input_dim: 4096}
+      - {type: fc, name: fc_up_proj, output_dim: 14336, input_dim: 4096}
+      - {type: sfu, name: sfu_swiglu, op_type: swiglu, dim: 14336, nbits: 16}
+      - {type: fc, name: fc_down_proj, output_dim: 4096, input_dim: 14336}
+  llama_3_1_8b:
+    display_name: "LLaMA-3.1 8B"
+    family: "llama_3"
+    kind: "dense"
+    num_layers: 32
+    hidden_size: 4096
+    num_attention_heads: 32
+    num_kv_heads: 8
+    head_dim: 128
+    ops:
+      - {type: sfu, name: sfu_rmsnorm, op_type: rmsnorm, dim: 4096, nbits: 16}
+      - {type: fc, name: fc_q_proj, output_dim: 4096, input_dim: 4096}
+      - {type: fc, name: fc_k_proj, output_dim: 1024, input_dim: 4096}
+      - {type: fc, name: fc_v_proj, output_dim: 1024, input_dim: 4096}
+      - {type: attention, name: attention, dim: 4096, num_attention_heads: 32, num_kv_heads: 8, head_dim: 128}
+      - {type: fc, name: fc_o_proj, output_dim: 4096, input_dim: 4096}
+      - {type: sfu, name: sfu_rmsnorm_2, op_type: rmsnorm, dim: 4096, nbits: 16}
+      - {type: fc, name: fc_gate_proj, output_dim: 14336, input_dim: 4096}
+      - {type: fc, name: fc_up_proj, output_dim: 14336, input_dim: 4096}
+      - {type: sfu, name: sfu_swiglu, op_type: swiglu, dim: 14336, nbits: 16}
+      - {type: fc, name: fc_down_proj, output_dim: 4096, input_dim: 14336}

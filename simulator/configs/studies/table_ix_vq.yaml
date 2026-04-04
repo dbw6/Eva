@@ -1,0 +1,39 @@
+studies:
+  table_ix_vq:
+    description: "Validate EVA GPTVQ latency against the Table IX trade-off rows."
+    phase: decode
+    ops_mode: fc_only
+    models:
+      - llama_2_7b
+    methods:
+      - vqarray_2_decode
+      - vqarray_3_decode
+      - vqarray_2_decode_12
+      - vqarray_4_decode
+      - vqarray_1_decode_16
+      - vqarray_1_decode_4d
+      - vqarray_2_gptvq_decode
+    sequence_lengths: [1]
+    batch_sizes: [1]
+    aggregate_sequence1: false
+    output_subdir: table_ix_vq
+    extra:
+      baseline_method: vqarray_2_decode
+      normalized_tolerance: 0.02
+      cycle_tolerance: 256
+      algorithm_labels:
+        vqarray_2_decode: AQLM 2x8
+        vqarray_3_decode: AQLM 3x8
+        vqarray_2_decode_12: AQLM 2x12
+        vqarray_4_decode: AQLM 4x8
+        vqarray_1_decode_16: AQLM 1x16
+        vqarray_1_decode_4d: Hypothesized
+        vqarray_2_gptvq_decode: GPTVQ-4D
+      configuration_labels:
+        vqarray_2_decode: "d=8, n=8, C=2, 2^n = 256, q = 2, N=4096"
+        vqarray_3_decode: "d=8, n=8, C=3, 2^n = 256, q = 3, N = 4096"
+        vqarray_2_decode_12: "d=8, n=12, C=2, 2^n = 4096, q = 3, N =4096"
+        vqarray_4_decode: "d=8, n=8, C=4, 2^n = 256, q = 4, N = 4096"
+        vqarray_1_decode_16: "d=8, n=16, C=1, 2^n = 65536, q=2 N =4096"
+        vqarray_1_decode_4d: "d=4, n=8, C=1, 2^n = 256, q=2, N=4096"
+        vqarray_2_gptvq_decode: "d=4, n=8, C=1, 2^n = 256, q=2, N=256"

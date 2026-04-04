@@ -1,0 +1,18 @@
+studies:
+  fig10_hw:
+    description: "Generate TABLE VI and Fig. 10 hardware outputs for LLaMA-2 7B FC-only decode."
+    phase: decode
+    ops_mode: fc_only
+    models:
+      - llama_2_7b
+    methods:
+      - systolic_array
+      - ant
+      - figna
+      - figlut_4
+      - vqarray_2_decode
+    sequence_lengths: [1]
+    batch_sizes: [1]
+    aggregate_sequence1: false
+    output_subdir: fig10_hw
+    extra: {}

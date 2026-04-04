@@ -1,0 +1,310 @@
+methods:
+  vqarray_2_decode:
+    family: vqarray_decode
+    display_name: "EVA-A16W2"
+    quantization_bits: 2
+    algorithm: aqlm
+    bitwidths: {activation: 16, codebook: 16, index: 8, output: 16}
+    array: {height: 32, width: 8}
+    tiles: {adder_tree_size: 128, tile_size_codebook: 1, buffer_bits: 8192}
+    buffers: {unused: 0}
+    extra: {reference_cycle_adjustment: -42}
+    energy:
+      dram_leak_energy: 4.01232
+      dram_cost_read: 0.01223
+      dram_cost_write: 0.01223
+      core_leak_energy: 3.703155178
+      core_dynamic_energy: 0.0
+      wbuf_read_energy: 0.0000455898
+      wbuf_write_energy: 0.0000800469
+      ibuf_read_energy: 0.000027558203125
+      ibuf_write_energy: 0.000049760546875
+      obuf_read_energy: 0.000027558203125
+      obuf_write_energy: 0.000049760546875
+      cap_buf_read_energy: 0.0000171028125
+      cap_buf_write_energy: 0.000025327875
+      codebook_buf_read_energy: 0.0000142475
+      codebook_buf_write_energy: 0.0000364498
+      sram_leak_energy: 2.366926464
+      core_power: 1.851577589
+      array_power: 1.4269
+      epilogue_power_per_unit: 0.0599838
+      sfu_power: 0.1847423889
+      array_area_mm2: 0.480927888
+      epilogue_area_per_unit_mm2: 0.012602772
+      sfu_area_mm2: 0.06338077
+  vqarray_3_decode:
+    family: vqarray_decode
+    display_name: "EVA-A16W3"
+    quantization_bits: 3
+    algorithm: aqlm
+    bitwidths: {activation: 16, codebook: 16, index: 8, output: 16}
+    array: {height: 32, width: 8}
+    tiles: {adder_tree_size: 128, tile_size_codebook: 1, buffer_bits: 8192}
+    buffers: {unused: 0}
+    extra: {reference_cycle_adjustment: -42}
+    energy:
+      dram_leak_energy: 4.01232
+      dram_cost_read: 0.01223
+      dram_cost_write: 0.01223
+      core_leak_energy: 3.703155178
+      core_dynamic_energy: 0.0
+      wbuf_read_energy: 0.0000455898
+      wbuf_write_energy: 0.0000800469
+      ibuf_read_energy: 0.000027558203125
+      ibuf_write_energy: 0.000049760546875
+      obuf_read_energy: 0.000027558203125
+      obuf_write_energy: 0.000049760546875
+      cap_buf_read_energy: 0.0000171028125
+      cap_buf_write_energy: 0.000025327875
+      codebook_buf_read_energy: 0.0000142475
+      codebook_buf_write_energy: 0.0000364498
+      sram_leak_energy: 2.366926464
+      core_power: 1.851577589
+      array_power: 1.4269
+      epilogue_power_per_unit: 0.0599838
+      sfu_power: 0.1847423889
+      array_area_mm2: 0.480927888
+      epilogue_area_per_unit_mm2: 0.012602772
+      sfu_area_mm2: 0.06338077
+  vqarray_4_decode:
+    family: vqarray_decode
+    display_name: "EVA-A16W4"
+    quantization_bits: 4
+    algorithm: aqlm
+    bitwidths: {activation: 16, codebook: 16, index: 8, output: 16}
+    array: {height: 32, width: 8}
+    tiles: {adder_tree_size: 128, tile_size_codebook: 1, buffer_bits: 8192}
+    buffers: {unused: 0}
+    extra: {reference_cycle_adjustment: -42}
+    energy:
+      dram_leak_energy: 4.01232
+      dram_cost_read: 0.01223
+      dram_cost_write: 0.01223
+      core_leak_energy: 3.703155178
+      core_dynamic_energy: 0.0
+      wbuf_read_energy: 0.0000455898
+      wbuf_write_energy: 0.0000800469
+      ibuf_read_energy: 0.000027558203125
+      ibuf_write_energy: 0.000049760546875
+      obuf_read_energy: 0.000027558203125
+      obuf_write_energy: 0.000049760546875
+      cap_buf_read_energy: 0.0000171028125
+      cap_buf_write_energy: 0.000025327875
+      codebook_buf_read_energy: 0.0000142475
+      codebook_buf_write_energy: 0.0000364498
+      sram_leak_energy: 2.366926464
+      core_power: 1.851577589
+      array_power: 1.4269
+      epilogue_power_per_unit: 0.0599838
+      sfu_power: 0.1847423889
+      array_area_mm2: 0.480927888
+      epilogue_area_per_unit_mm2: 0.012602772
+      sfu_area_mm2: 0.06338077
+  vqarray_2_decode_12:
+    family: vqarray_decode
+    display_name: "EVA-AQLM-2x12"
+    quantization_bits: 2
+    algorithm: aqlm
+    bitwidths: {activation: 16, codebook: 16, index: 8, output: 16}
+    array: {height: 32, width: 8}
+    tiles: {adder_tree_size: 128, tile_size_codebook: 1, buffer_bits: 8192}
+    buffers: {unused: 0}
+    extra:
+      decode_num_codebooks: 2
+      decode_vector_size: 8
+      decode_num_entries: 4096
+    energy:
+      dram_leak_energy: 4.01232
+      dram_cost_read: 0.01223
+      dram_cost_write: 0.01223
+      core_leak_energy: 3.703155178
+      core_dynamic_energy: 0.0
+      wbuf_read_energy: 0.0000455898
+      wbuf_write_energy: 0.0000800469
+      ibuf_read_energy: 0.000027558203125
+      ibuf_write_energy: 0.000049760546875
+      obuf_read_energy: 0.000027558203125
+      obuf_write_energy: 0.000049760546875
+      cap_buf_read_energy: 0.0000171028125
+      cap_buf_write_energy: 0.000025327875
+      codebook_buf_read_energy: 0.0000142475
+      codebook_buf_write_energy: 0.0000364498
+      sram_leak_energy: 2.366926464
+      core_power: 1.851577589
+      array_power: 1.4269
+      epilogue_power_per_unit: 0.0599838
+      sfu_power: 0.1847423889
+      array_area_mm2: 0.480927888
+      epilogue_area_per_unit_mm2: 0.012602772
+      sfu_area_mm2: 0.06338077
+  vqarray_1_decode_16:
+    family: vqarray_decode
+    display_name: "EVA-AQLM-1x16"
+    quantization_bits: 2
+    algorithm: aqlm
+    bitwidths: {activation: 16, codebook: 16, index: 8, output: 16}
+    array: {height: 32, width: 8}
+    tiles: {adder_tree_size: 128, tile_size_codebook: 1, buffer_bits: 8192}
+    buffers: {unused: 0}
+    extra:
+      decode_num_codebooks: 1
+      decode_vector_size: 8
+      decode_num_entries: 65536
+    energy:
+      dram_leak_energy: 4.01232
+      dram_cost_read: 0.01223
+      dram_cost_write: 0.01223
+      core_leak_energy: 3.703155178
+      core_dynamic_energy: 0.0
+      wbuf_read_energy: 0.0000455898
+      wbuf_write_energy: 0.0000800469
+      ibuf_read_energy: 0.000027558203125
+      ibuf_write_energy: 0.000049760546875
+      obuf_read_energy: 0.000027558203125
+      obuf_write_energy: 0.000049760546875
+      cap_buf_read_energy: 0.0000171028125
+      cap_buf_write_energy: 0.000025327875
+      codebook_buf_read_energy: 0.0000142475
+      codebook_buf_write_energy: 0.0000364498
+      sram_leak_energy: 2.366926464
+      core_power: 1.851577589
+      array_power: 1.4269
+      epilogue_power_per_unit: 0.0599838
+      sfu_power: 0.1847423889
+      array_area_mm2: 0.480927888
+      epilogue_area_per_unit_mm2: 0.012602772
+      sfu_area_mm2: 0.06338077
+  vqarray_1_decode_4d:
+    family: vqarray_decode
+    display_name: "EVA-AQLM-4D"
+    quantization_bits: 2
+    algorithm: aqlm
+    bitwidths: {activation: 16, codebook: 16, index: 8, output: 16}
+    array: {height: 32, width: 8}
+    tiles: {adder_tree_size: 128, tile_size_codebook: 1, buffer_bits: 8192}
+    buffers: {unused: 0}
+    extra:
+      decode_num_codebooks: 1
+      decode_vector_size: 4
+      decode_num_entries: 256
+    energy:
+      dram_leak_energy: 4.01232
+      dram_cost_read: 0.01223
+      dram_cost_write: 0.01223
+      core_leak_energy: 3.703155178
+      core_dynamic_energy: 0.0
+      wbuf_read_energy: 0.0000455898
+      wbuf_write_energy: 0.0000800469
+      ibuf_read_energy: 0.000027558203125
+      ibuf_write_energy: 0.000049760546875
+      obuf_read_energy: 0.000027558203125
+      obuf_write_energy: 0.000049760546875
+      cap_buf_read_energy: 0.0000171028125
+      cap_buf_write_energy: 0.000025327875
+      codebook_buf_read_energy: 0.0000142475
+      codebook_buf_write_energy: 0.0000364498
+      sram_leak_energy: 2.366926464
+      core_power: 1.851577589
+      array_power: 1.4269
+      epilogue_power_per_unit: 0.0599838
+      sfu_power: 0.1847423889
+      array_area_mm2: 0.480927888
+      epilogue_area_per_unit_mm2: 0.012602772
+      sfu_area_mm2: 0.06338077
+  vqarray_2_prefill:
+    family: vqarray_prefill
+    display_name: "EVA-A8W8-Prefill"
+    quantization_bits: 2
+    algorithm: aqlm
+    bitwidths: {activation: 8, weight: 8, output: 8}
+    array: {height: 32, width: 8}
+    tiles: {simd_width: 4}
+    buffers: {m: 1024, k: 64, n: 128}
+    extra: {}
+    energy:
+      dram_leak_energy: 4.01232
+      dram_cost_read: 0.01223
+      dram_cost_write: 0.01223
+      core_leak_energy: 3.223284778
+      core_dynamic_energy: 0.0
+      wbuf_read_energy: 0.00001850515625
+      wbuf_write_energy: 0.000040707421875
+      ibuf_read_energy: 0.000119577734375
+      ibuf_write_energy: 0.000133059765625
+      obuf_read_energy: 0.000119577734375
+      obuf_write_energy: 0.000133059765625
+      sram_leak_energy: 2.02948448
+      core_power: 1.611642389
+  vqarray_2_decode_kvq:
+    family: vqarray_decode
+    display_name: "EVA-KVQ"
+    quantization_bits: 2
+    algorithm: aqlm
+    bitwidths: {activation: 16, codebook: 16, index: 8, output: 16}
+    array: {height: 32, width: 8}
+    tiles: {adder_tree_size: 128, tile_size_codebook: 1, buffer_bits: 8192}
+    buffers: {unused: 0}
+    extra: {}
+    energy:
+      dram_leak_energy: 4.01232
+      dram_cost_read: 0.01223
+      dram_cost_write: 0.01223
+      core_leak_energy: 3.703155178
+      core_dynamic_energy: 0.0
+      wbuf_read_energy: 0.0000455898
+      wbuf_write_energy: 0.0000800469
+      ibuf_read_energy: 0.000027558203125
+      ibuf_write_energy: 0.000049760546875
+      obuf_read_energy: 0.000027558203125
+      obuf_write_energy: 0.000049760546875
+      cap_buf_read_energy: 0.0000171028125
+      cap_buf_write_energy: 0.000025327875
+      codebook_buf_read_energy: 0.0000142475
+      codebook_buf_write_energy: 0.0000364498
+      sram_leak_energy: 2.366926464
+      core_power: 1.851577589
+      array_power: 1.4269
+      epilogue_power_per_unit: 0.0599838
+      sfu_power: 0.1847423889
+      array_area_mm2: 0.480927888
+      epilogue_area_per_unit_mm2: 0.012602772
+      sfu_area_mm2: 0.06338077
+  vqarray_2_gptvq_decode:
+    family: vqarray_gptvq_decode
+    display_name: "EVA-GPTVQ-W2"
+    quantization_bits: 2
+    algorithm: gptvq
+    bitwidths: {activation: 16, codebook: 16, index: 8, output: 16}
+    array: {height: 32, width: 8}
+    tiles: {adder_tree_size: 128, tile_size_codebook: 1, buffer_bits: 8192, group_size_k: 256, group_size_n: 256}
+    buffers: {unused: 0}
+    extra:
+      decode_num_codebooks: 1
+      decode_vector_size: 4
+      decode_num_entries: 256
+      grouped_decode: true
+    energy:
+      dram_leak_energy: 4.01232
+      dram_cost_read: 0.01223
+      dram_cost_write: 0.01223
+      core_leak_energy: 3.703155178
+      core_dynamic_energy: 0.0
+      wbuf_read_energy: 0.0000455898
+      wbuf_write_energy: 0.0000800469
+      ibuf_read_energy: 0.000027558203125
+      ibuf_write_energy: 0.000049760546875
+      obuf_read_energy: 0.000027558203125
+      obuf_write_energy: 0.000049760546875
+      cap_buf_read_energy: 0.0000171028125
+      cap_buf_write_energy: 0.000025327875
+      codebook_buf_read_energy: 0.0000142475
+      codebook_buf_write_energy: 0.0000364498
+      sram_leak_energy: 2.366926464
+      core_power: 1.851577589
+      array_power: 1.4269
+      epilogue_power_per_unit: 0.0599838
+      sfu_power: 0.1847423889
+      array_area_mm2: 0.480927888
+      epilogue_area_per_unit_mm2: 0.012602772
+      sfu_area_mm2: 0.06338077

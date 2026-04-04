@@ -1,0 +1,52 @@
+hardware_reports:
+  table_vi_fig10:
+    model: llama_2_7b
+    sequence_length: 1
+    baseline_method: systolic_array
+    architectures:
+      systolic_array:
+        table_label: SA
+        workbook_label: int8 array
+        pe_array: "32 x 32"
+        area_components_mm2:
+          core: 0.330688512
+          sfu: 0.063380772
+          buffer: 0.861716551149
+      ant:
+        table_label: ANT
+        workbook_label: ant
+        pe_array: "32 x 32"
+        area_components_mm2:
+          core: 0.54706176
+          sfu: 0.063380772
+          buffer: 0.861716551149
+      figna:
+        table_label: FIGNA
+        workbook_label: figna
+        pe_array: "32 x 32"
+        area_components_mm2:
+          core: 0.43451856
+          sfu: 0.063380772
+          buffer: 0.7132549402004
+      figlut_4:
+        table_label: FIGLUT
+        workbook_label: figlut_f
+        pe_array: "16 x 64"
+        area_components_mm2:
+          core: 0.711037152
+          sfu: 0.063380772
+          buffer: 0.80778814
+      vqarray_2_decode:
+        table_label: EVA
+        workbook_label: vqarray
+        pe_array: "32 x 32"
+        area_components_mm2:
+          array: 0.480927888
+          epilogue: 0.050411088
+          sfu: 0.063380772
+          buffer: 0.8192560712015196
+        fig10_component_order:
+          - array
+          - epilogue
+          - sfu
+          - buffer
