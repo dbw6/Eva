@@ -211,3 +211,7 @@ simulator/output/
 simulator/output_hardware_moe_stage1/
 simulator/output_hardware_moe_stage2/
 simulator/output_reviewer/
+
+# Algorithm evaluation outputs (large JSON results)
+algorithm/output/
+results/
