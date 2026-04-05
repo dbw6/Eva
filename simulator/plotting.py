@@ -73,7 +73,7 @@ def plot_fig9_from_aggregated_csv(csv_path: str | Path, output_path: str | Path 
     figure_dataframe = dataframe[dataframe["method"].isin(FIG9_METHODS)].copy()
 
     fig = plt.figure(figsize=(15, 8))
-    grid = fig.add_gridspec(2, 2, width_ratios=[8, 2.2], height_ratios=[1, 1], hspace=0.34, wspace=0.15)
+    grid = fig.add_gridspec(2, 2, width_ratios=[8, 2.2], height_ratios=[1, 1], hspace=0.55, wspace=0.15)
     latency_ax = fig.add_subplot(grid[0, 0])
     speedup_ax = fig.add_subplot(grid[0, 1])
     energy_ax = fig.add_subplot(grid[1, 0])
