@@ -5,8 +5,6 @@ This repository contains the artifacts for the EVA paper:
 1. **Hardware Simulator** — A config-driven simulator that reproduces all hardware evaluation results (Figures 8--14 and Tables VI--IX). See [`simulator/README.md`](simulator/README.md).
 2. **Algorithm Evaluation** — Scripts to reproduce the algorithm-level accuracy tables (Tables III, IV, and X) using pre-trained AQLM-quantized model checkpoints. See [`algorithm/README.md`](algorithm/README.md).
 
-> **Note:** The algorithm evaluation is optional. EVA's quantization algorithm (based on AQLM) has not been specifically optimized; the primary contribution of this work is the hardware accelerator design.
-
 ## Artifact Structure
 
 ```
@@ -111,14 +109,8 @@ jupyter notebook notebooks/hardware_results.ipynb
 
 For the optional algorithm evaluation, see [`algorithm/README.md`](algorithm/README.md).
 
-## Baseline Method References
+## Reference
 
-The following baseline methods appear in the evaluation tables. Results for these methods are taken from their respective publications:
+The code for the algorithm section is based on the following repository:
 
-- **AWQ**: Lin, Ji, et al. "Awq: Activation-aware weight quantization for on-device llm compression and acceleration." Proceedings of machine learning and systems 6 (2024): 87-100.
-- **GPTQ**: Frantar, Elias, et al. "Gptq: Accurate post-training quantization for generative pre-trained transformers." arXiv preprint arXiv:2210.17323 (2022).
-- **GPTVQ**: Van Baalen, Mart, et al. "Gptvq: The blessing of dimensionality for llm quantization." arXiv preprint arXiv:2402.15319 (2024).
-- **BCQ (ShiftAddLLM)**: You, Haoran, et al. "Shiftaddllm: Accelerating pretrained llms via post-training multiplication-less reparameterization." Advances in Neural Information Processing Systems 37 (2024): 24822-24848.
 - **AQLM**: Egiazarian, Vage, et al. "Extreme compression of large language models via additive quantization." arXiv preprint arXiv:2401.06118 (2024). Source code: [https://github.com/Vahe1994/AQLM](https://github.com/Vahe1994/AQLM).
-- **LLM.265**: Xu, Ceyu, et al. "LLM. 265: Video Codecs are Secretly Tensor Codecs." Proceedings of the 58th IEEE/ACM International Symposium on Microarchitecture. 2025.
-- **QServe**: Lin, Yujun, et al. "Qserve: W4a8kv4 quantization and system co-design for efficient llm serving." Proceedings of Machine Learning and Systems 7 (2025).
