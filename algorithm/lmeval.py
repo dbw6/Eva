@@ -1,6 +1,7 @@
 # Copied from https://github.com/EleutherAI/lm-evaluation-harness/blob/main/lm_eval/__main__.py
 
 import argparse
+import inspect
 import json
 import logging
 import os
@@ -11,10 +12,19 @@ from typing import Union
 
 import numpy as np
 from lm_eval import evaluator, utils
-from lm_eval.api.registry import ALL_TASKS
-from lm_eval.tasks import include_path, initialize_tasks
 from lm_eval.utils import make_table
 from transformers import AutoModelForCausalLM
+
+try:
+    from lm_eval.api.registry import ALL_TASKS
+    from lm_eval.tasks import include_path, initialize_tasks
+
+    TaskManager = None
+except ImportError:
+    ALL_TASKS = None
+    include_path = None
+    initialize_tasks = None
+    from lm_eval.tasks import TaskManager
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from model_loader import _fix_unquantized_layers, _is_aqlm_moe, _is_aqlm_quantized, _patch_moe_experts
@@ -152,6 +162,17 @@ def parse_eval_args() -> argparse.Namespace:
 _DEPRECATED_KWARGS = {"load_in_8bit", "load_in_4bit"}
 
 
+def _build_task_manager(args: argparse.Namespace):
+    if TaskManager is None:
+        initialize_tasks(args.verbosity)
+        if args.include_path is not None:
+            include_path(args.include_path)
+        return None, sorted(ALL_TASKS)
+
+    task_manager = TaskManager(verbosity=args.verbosity, include_path=args.include_path)
+    return task_manager, task_manager.all_tasks
+
+
 def _install_aqlm_compat_hook():
     """Monkey-patch AutoModelForCausalLM.from_pretrained to fix transformers >= 5.x
     AQLM compatibility issues (fused MoE experts, quantized lm_head) and strip
@@ -192,25 +213,25 @@ def cli_evaluate(args: Union[argparse.Namespace, None] = None) -> None:
             return model
         AutoModelForCausalLM.from_pretrained = staticmethod(from_pretrained_aqlm)
 
-    eval_logger = utils.eval_logger
+    utils.setup_logging(getattr(logging, f"{args.verbosity}"))
+    eval_logger = logging.getLogger("lm_eval")
     eval_logger.setLevel(getattr(logging, f"{args.verbosity}"))
     eval_logger.info(f"Verbosity set to {args.verbosity}")
     os.environ["TOKENIZERS_PARALLELISM"] = "false"
-
-    initialize_tasks(args.verbosity)
 
     if args.limit:
         eval_logger.warning(
             " --limit SHOULD ONLY BE USED FOR TESTING." "REAL METRICS SHOULD NOT BE COMPUTED USING LIMIT."
         )
+
+    task_manager, all_tasks = _build_task_manager(args)
     if args.include_path is not None:
         eval_logger.info(f"Including path: {args.include_path}")
-        include_path(args.include_path)
 
     if args.tasks is None:
-        task_names = ALL_TASKS
+        task_names = all_tasks
     elif args.tasks == "list":
-        eval_logger.info("Available Tasks:\n - {}".format("\n - ".join(sorted(ALL_TASKS))))
+        eval_logger.info("Available Tasks:\n - {}".format("\n - ".join(sorted(all_tasks))))
         sys.exit()
     else:
         if os.path.isdir(args.tasks):
@@ -223,7 +244,7 @@ def cli_evaluate(args: Union[argparse.Namespace, None] = None) -> None:
                 task_names.append(config)
         else:
             tasks_list = args.tasks.split(",")
-            task_names = utils.pattern_match(tasks_list, ALL_TASKS)
+            task_names = utils.pattern_match(tasks_list, all_tasks)
             for task in [task for task in tasks_list if task not in task_names]:
                 if os.path.isfile(task):
                     config = utils.load_yaml_config(task)
@@ -262,21 +283,27 @@ def cli_evaluate(args: Union[argparse.Namespace, None] = None) -> None:
 
     eval_logger.info(f"Selected Tasks: {task_names}")
 
+    simple_evaluate_kwargs = {
+        "model": args.model,
+        "model_args": args.model_args,
+        "tasks": task_names,
+        "num_fewshot": args.num_fewshot,
+        "batch_size": args.batch_size,
+        "max_batch_size": args.max_batch_size,
+        "device": args.device,
+        "use_cache": args.use_cache,
+        "limit": args.limit,
+        "decontamination_ngrams_path": args.decontamination_ngrams_path,
+        "check_integrity": args.check_integrity,
+        "write_out": args.write_out,
+        "log_samples": args.log_samples,
+        "gen_kwargs": args.gen_kwargs,
+        "task_manager": task_manager,
+        "verbosity": args.verbosity,
+    }
+    supported_kwargs = inspect.signature(evaluator.simple_evaluate).parameters
     results = evaluator.simple_evaluate(
-        model=args.model,
-        model_args=args.model_args,
-        tasks=task_names,
-        num_fewshot=args.num_fewshot,
-        batch_size=args.batch_size,
-        max_batch_size=args.max_batch_size,
-        device=args.device,
-        use_cache=args.use_cache,
-        limit=args.limit,
-        decontamination_ngrams_path=args.decontamination_ngrams_path,
-        check_integrity=args.check_integrity,
-        write_out=args.write_out,
-        log_samples=args.log_samples,
-        gen_kwargs=args.gen_kwargs,
+        **{k: v for k, v in simple_evaluate_kwargs.items() if k in supported_kwargs}
     )
 
     if results is not None:

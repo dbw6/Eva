@@ -1,6 +1,10 @@
-# EVA: Artifact Evaluation
+# EVA: Recasting LLM Decoding into GEMM via an Efficient Vector Quantization Architecture
 
-This repository contains the artifacts for the EVA paper:
+This repository provides the official implementation and artifacts for the ISCA 2026 paper "EVA: Recasting LLM Decoding into GEMM via an Efficient Vector Quantization Architecture."
+
+This release corresponds to the artifact-evaluated version of the codebase. It includes all scripts, configuration files, and Jupyter notebooks required to reproduce the hardware performance and algorithm accuracy results reported in the paper.
+
+The repository is organized into two main components:
 
 1. **Hardware Simulator** — A config-driven simulator that reproduces all hardware evaluation results (Figures 8--14 and Tables VI--IX). See [`simulator/README.md`](simulator/README.md).
 2. **Algorithm Evaluation** — Scripts to reproduce the algorithm-level accuracy tables (Tables III, IV, and X) using pre-trained AQLM-quantized model checkpoints. See [`algorithm/README.md`](algorithm/README.md).
@@ -80,7 +84,7 @@ pip install "transformers>=5.4.0"
 pip install "accelerate>=0.29.3"
 pip install "sentencepiece>=0.2.0"
 pip install "safetensors>=0.4.0"
-pip install -e path/to/lm-evaluation-harness   # vendored lm-eval v1.0.0
+pip install lm-eval
 ```
 
 Notes:

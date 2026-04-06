@@ -18,7 +18,7 @@ pip install "accelerate>=0.29.3"
 pip install "sentencepiece>=0.2.0"
 pip install "safetensors>=0.4.0"
 pip install "aqlm[gpu,cpu]>=1.1.6"
-pip install -e path/to/lm-evaluation-harness   # vendored lm-eval v1.0.0
+pip install lm-eval
 ```
 
 **GPU requirement:** NVIDIA GPU with >=24 GB VRAM (A100-80GB recommended). Set `GPU_ID` to a GPU with low VRAM usage.
