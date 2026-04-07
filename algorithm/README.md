@@ -12,7 +12,7 @@ The evaluation code is migrated from the [AQLM repository](https://github.com/Va
 conda activate eva
 cd Eva/   # all commands run from the Eva/ root
 
-pip install "torch>=2.3.0" --index-url https://download.pytorch.org/whl/cu121
+pip install torch==2.5.1 torchvision==0.20.1 torchaudio==2.5.1 --index-url https://download.pytorch.org/whl/cu121
 pip install "transformers>=5.4.0"
 pip install "accelerate>=0.29.3"
 pip install "sentencepiece>=0.2.0"
@@ -123,7 +123,7 @@ CUDA_VISIBLE_DEVICES=<GPU_ID> PYTHONPATH=algorithm python algorithm/lmeval.py \
   --model hf \
   --model_args pretrained=dbw6/Qwen3-30B-A3B-Instruct-2507-AQLM-4Bit-4x8-hf,dtype=auto,trust_remote_code=True \
   --tasks arc_challenge,arc_easy,piqa,boolq,winogrande \
-  --batch_size 2 --num_fewshot 0 \
+  --batch_size 4 --num_fewshot 0 \
   --output_path algorithm/output/qwen3_4bit
 
 # Qwen3-30B-A3B 2-bit
@@ -131,7 +131,7 @@ CUDA_VISIBLE_DEVICES=<GPU_ID> PYTHONPATH=algorithm python algorithm/lmeval.py \
   --model hf \
   --model_args pretrained=dbw6/Qwen3-30B-A3B-Instruct-2507-AQLM-2Bit-2x8-hf,dtype=auto,trust_remote_code=True \
   --tasks arc_challenge,arc_easy,piqa,boolq,winogrande \
-  --batch_size 2 --num_fewshot 0 \
+  --batch_size 4 --num_fewshot 0 \
   --output_path algorithm/output/qwen3_2bit
 ```
 

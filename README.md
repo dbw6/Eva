@@ -79,7 +79,7 @@ pip install jupyter nbclient
 For the optional algorithm evaluation, also install:
 
 ```bash
-pip install "torch>=2.3.0" --index-url https://download.pytorch.org/whl/cu121
+pip install torch==2.5.1 torchvision==0.20.1 torchaudio==2.5.1 --index-url https://download.pytorch.org/whl/cu121
 pip install "transformers>=5.4.0"
 pip install "accelerate>=0.29.3"
 pip install "sentencepiece>=0.2.0"
