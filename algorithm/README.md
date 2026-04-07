@@ -82,7 +82,7 @@ CUDA_VISIBLE_DEVICES=<GPU_ID> python algorithm/eval_ppl.py \
 # Llama-2-7B 4-bit
 CUDA_VISIBLE_DEVICES=<GPU_ID> PYTHONPATH=algorithm python algorithm/lmeval.py \
   --model hf \
-  --model_args pretrained=dbw6/Llama-2-7b-AQLM-4Bit-4x8-hf,dtype=auto,trust_remote_code=True \
+  --model_args pretrained=dbw6/Llama-2-7b-AQLM-4Bit-4x8-hf,dtype=float16,trust_remote_code=True \
   --tasks piqa,copa,arc_easy,arc_challenge,winogrande \
   --batch_size 4 --num_fewshot 0 \
   --output_path algorithm/output/llama2_7b_4bit
@@ -90,7 +90,7 @@ CUDA_VISIBLE_DEVICES=<GPU_ID> PYTHONPATH=algorithm python algorithm/lmeval.py \
 # Llama-2-7B 2-bit
 CUDA_VISIBLE_DEVICES=<GPU_ID> PYTHONPATH=algorithm python algorithm/lmeval.py \
   --model hf \
-  --model_args pretrained=ISTA-DASLab/Llama-2-7b-AQLM-2Bit-2x8-hf,dtype=auto,trust_remote_code=True \
+  --model_args pretrained=ISTA-DASLab/Llama-2-7b-AQLM-2Bit-2x8-hf,dtype=float16,trust_remote_code=True \
   --tasks piqa,copa,arc_easy,arc_challenge,winogrande \
   --batch_size 4 --num_fewshot 0 \
   --output_path algorithm/output/llama2_7b_2bit
@@ -105,7 +105,7 @@ CUDA_VISIBLE_DEVICES=<GPU_ID> PYTHONPATH=algorithm python algorithm/lmeval.py \
 # Mixtral-8x7B 4-bit
 CUDA_VISIBLE_DEVICES=<GPU_ID> PYTHONPATH=algorithm python algorithm/lmeval.py \
   --model hf \
-  --model_args pretrained=dbw6/Mixtral-8x7B-AQLM-4Bit-4x8-hf,dtype=auto,trust_remote_code=True \
+  --model_args pretrained=dbw6/Mixtral-8x7B-AQLM-4Bit-4x8-hf,dtype=float16,trust_remote_code=True \
   --tasks arc_challenge,arc_easy,piqa,boolq,winogrande \
   --batch_size 4 --num_fewshot 0 \
   --output_path algorithm/output/mixtral_4bit
@@ -113,7 +113,7 @@ CUDA_VISIBLE_DEVICES=<GPU_ID> PYTHONPATH=algorithm python algorithm/lmeval.py \
 # Mixtral-8x7B 2-bit
 CUDA_VISIBLE_DEVICES=<GPU_ID> PYTHONPATH=algorithm python algorithm/lmeval.py \
   --model hf \
-  --model_args pretrained=dbw6/Mixtral-8x7B-AQLM-2Bit-2x8-hf,dtype=auto,trust_remote_code=True \
+  --model_args pretrained=dbw6/Mixtral-8x7B-AQLM-2Bit-2x8-hf,dtype=float16,trust_remote_code=True \
   --tasks arc_challenge,arc_easy,piqa,boolq,winogrande \
   --batch_size 4 --num_fewshot 0 \
   --output_path algorithm/output/mixtral_2bit
@@ -121,7 +121,7 @@ CUDA_VISIBLE_DEVICES=<GPU_ID> PYTHONPATH=algorithm python algorithm/lmeval.py \
 # Qwen3-30B-A3B 4-bit
 CUDA_VISIBLE_DEVICES=<GPU_ID> PYTHONPATH=algorithm python algorithm/lmeval.py \
   --model hf \
-  --model_args pretrained=dbw6/Qwen3-30B-A3B-Instruct-2507-AQLM-4Bit-4x8-hf,dtype=auto,trust_remote_code=True \
+  --model_args pretrained=dbw6/Qwen3-30B-A3B-Instruct-2507-AQLM-4Bit-4x8-hf,dtype=float16,trust_remote_code=True \
   --tasks arc_challenge,arc_easy,piqa,boolq,winogrande \
   --batch_size 4 --num_fewshot 0 \
   --output_path algorithm/output/qwen3_4bit
@@ -129,7 +129,7 @@ CUDA_VISIBLE_DEVICES=<GPU_ID> PYTHONPATH=algorithm python algorithm/lmeval.py \
 # Qwen3-30B-A3B 2-bit
 CUDA_VISIBLE_DEVICES=<GPU_ID> PYTHONPATH=algorithm python algorithm/lmeval.py \
   --model hf \
-  --model_args pretrained=dbw6/Qwen3-30B-A3B-Instruct-2507-AQLM-2Bit-2x8-hf,dtype=auto,trust_remote_code=True \
+  --model_args pretrained=dbw6/Qwen3-30B-A3B-Instruct-2507-AQLM-2Bit-2x8-hf,dtype=float16,trust_remote_code=True \
   --tasks arc_challenge,arc_easy,piqa,boolq,winogrande \
   --batch_size 4 --num_fewshot 0 \
   --output_path algorithm/output/qwen3_2bit
