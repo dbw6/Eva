@@ -26,6 +26,9 @@ Eva/
 │   ├── model_loader.py          # AQLM model loader with transformers >=5.x compat fixes
 │   ├── output/                  # Algorithm evaluation outputs (JSON, git-ignored)
 │   └── src/                     # AQLM source (modelutils, datautils, etc.)
+├── scripts/
+│   ├── run_simulator_parallel.sh # Parallel hardware simulation runner
+│   └── run_algorithm_parallel.sh # Multi-GPU algorithm evaluation runner
 ├── notebooks/
 │   ├── hardware_results.ipynb   # Hardware figure/table reproduction
 │   └── algorithm_results.ipynb  # Algorithm table reproduction (optional)
@@ -64,6 +67,7 @@ Eva/
 
 - **OS**: Linux (tested on Ubuntu 20.04+)
 - **Python**: 3.11
+- **Compiler**: GCC/G++ 11.x recommended (tested with GCC/G++ 11.4.0). AQLM may JIT-compile CUDA/C++ extensions through `ninja`, so the host compiler must be compatible with the installed CUDA toolkit.
 - **Network**: Internet access for HuggingFace model/dataset downloads on first run
 
 ## Environment Setup
@@ -91,6 +95,7 @@ Notes:
 - `aqlm` is required for Table VII, Fig. 14 (hardware), and all algorithm evaluations.
 - `datasets` and `transformers` are installed through `pip install -e .`.
 - Some studies download gated HuggingFace models on first run. Ensure the environment has access.
+- If AQLM CUDA extension builds fail, first check that `gcc --version`, `g++ --version`, and `nvcc --version` report mutually compatible versions. The artifact was evaluated successfully with GCC/G++ 11.4.0 and CUDA 12.1.
 - `transformers>=5.4.0` is required for Qwen3MoE model support. The `algorithm/model_loader.py` module automatically patches compatibility issues between `transformers>=5.x` and AQLM checkpoints (see [`algorithm/README.md`](algorithm/README.md) for details).
 
 ## Quick Start
@@ -101,17 +106,17 @@ cd Eva/
 
 # Run all hardware simulation studies (Steps 1--9)
 # See simulator/README.md for per-step details
-for study in fig9_fc fig10_hw fig8_dse table_vii_abl fig14_index table_viii_data table_ix_vq fig11_batch; do
-    python -m simulator.main --study $study --output-dir simulator/output
-done
-python -m simulator.main --study e2e --output-dir simulator/output \
-  --execution-mode full --scenarios fig12_llama2,fig13_moe
+scripts/run_simulator_parallel.sh
 
 # Visualize hardware results
 jupyter notebook notebooks/hardware_results.ipynb
 ```
 
-For the optional algorithm evaluation, see [`algorithm/README.md`](algorithm/README.md).
+For the optional algorithm evaluation, see [`algorithm/README.md`](algorithm/README.md). On a multi-GPU system, the full optional evaluation can be launched with:
+
+```bash
+GPU_IDS=0,1,2,3 scripts/run_algorithm_parallel.sh
+```
 
 ## Reference
 

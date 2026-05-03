@@ -15,6 +15,24 @@ cd Eva/   # all commands run from the Eva/ root
 
 No GPU is required. All simulations run on the CPU.
 
+The artifact was tested with GCC/G++ 11.4.0. The simulator itself does not compile native kernels, but Step 4 and Step 5 use AQLM metadata and may require AQLM to be installed correctly in the same environment.
+
+## Parallel Reproduction Script
+
+To run the complete hardware simulation workflow with bounded parallelism:
+
+```bash
+scripts/run_simulator_parallel.sh
+```
+
+The script runs independent short studies in parallel, runs the AQLM-backed Step 4 and Step 5 in order to avoid duplicate first-run checkpoint downloads, and then runs Step 9 once because the end-to-end scenarios write shared aggregate files. Optional environment variables:
+
+```bash
+MAX_JOBS=6 OUTPUT_DIR=simulator/output scripts/run_simulator_parallel.sh
+```
+
+Logs are written to `simulator/output/logs/simulator/` by default. The step-by-step commands below remain useful for debugging or reproducing one figure/table at a time.
+
 ## Step-by-Step Reproduction
 
 ### Step 1: Figure 9 -- FC Decode Latency and Energy

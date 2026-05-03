@@ -23,6 +23,24 @@ pip install lm-eval
 
 **GPU requirement:** NVIDIA GPU with >=24 GB VRAM (A100-80GB recommended). Set `GPU_ID` to a GPU with low VRAM usage.
 
+**Compiler requirement:** GCC/G++ 11.x is recommended and GCC/G++ 11.4.0 was used during artifact evaluation. AQLM can JIT-compile CUDA/C++ extensions through `ninja`; if compilation fails, verify that `gcc --version`, `g++ --version`, and `nvcc --version` are compatible with the installed PyTorch/CUDA stack.
+
+## Parallel Reproduction Script
+
+To run all optional algorithm evaluations with one GPU:
+
+```bash
+GPU_IDS=0 scripts/run_algorithm_parallel.sh
+```
+
+To use multiple GPUs, provide a comma-separated GPU list:
+
+```bash
+GPU_IDS=0,1,2,3 scripts/run_algorithm_parallel.sh
+```
+
+Each GPU runs one evaluation at a time, and jobs are assigned round-robin across the listed GPUs. Outputs are written to `algorithm/output/`, and logs are written to `algorithm/output/logs/algorithm/`. The step-by-step commands below remain useful for debugging or rerunning a single table entry.
+
 ## Transformers Compatibility
 
 `transformers>=5.4.0` is required for Qwen3MoE model support. The `model_loader.py` module automatically patches two compatibility issues between `transformers>=5.x` and AQLM checkpoints:
@@ -73,7 +91,7 @@ CUDA_VISIBLE_DEVICES=<GPU_ID> python algorithm/eval_ppl.py \
   --output algorithm/output/ppl_llama2_13b_2bit.json
 ```
 
-- **Expected runtime**: ~ 5--10 minutes per model (~30 minutes total)
+- **Expected runtime**: ~5--10 minutes per model (~30 minutes total)
 - **Expected outputs**: `algorithm/output/ppl_llama2_{7b,13b}_{2,4}bit.json`
 
 ## Step 11: TABLE IV -- Llama-2-7B Downstream Accuracy
@@ -96,7 +114,7 @@ CUDA_VISIBLE_DEVICES=<GPU_ID> PYTHONPATH=algorithm python algorithm/lmeval.py \
   --output_path algorithm/output/llama2_7b_2bit
 ```
 
-- **Expected runtime**: ~ 30--45 minutes per model (~1.5 hours total)
+- **Expected runtime**: ~30--45 minutes per model (~1.5 hours total)
 - **Expected outputs**: `algorithm/output/llama2_7b_{2,4}bit/results.json`
 
 ## Step 12: TABLE X -- MoE Downstream Accuracy
@@ -135,7 +153,7 @@ CUDA_VISIBLE_DEVICES=<GPU_ID> PYTHONPATH=algorithm python algorithm/lmeval.py \
   --output_path algorithm/output/qwen3_2bit
 ```
 
-- **Expected runtime**: ~ 45--60 minutes per model (~3--4 hours total)
+- **Expected runtime**: ~45--75 minutes per model (~4--6 hours total)
 - **Expected outputs**: `algorithm/output/{mixtral,qwen3}_{2,4}bit/results.json`
 
 ## Notebook Visualization
@@ -150,14 +168,14 @@ The notebook loads evaluation results from `algorithm/output/`, combines them wi
 
 ## Runtime Summary
 
-All runtimes measured on a single A100-80GB GPU.
+Runtimes vary with GPU occupancy, checkpoint download speed, and CUDA extension build/cache state. 
 
 | Step | Evaluation | Measured Runtime |
 |------|------------|-----------------|
 | 10   | TABLE III (4 PPL evals)  | ~30 minutes |
 | 11   | TABLE IV (2 downstream)  | ~1.5 hours  |
-| 12   | TABLE X (6 downstream)   | ~3--4 hours |
-|      | **Total**                | **~5--6 hours** |
+| 12   | TABLE X (6 downstream)   | ~4--6 hours |
+|      | **Total**                | **~6--8 hours** |
 
 ## Expected Results
 
