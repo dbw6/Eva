@@ -1,6 +1,6 @@
 studies:
-  fig9_fc:
-    description: "Reproduce the Figure 9 FC-only decoding results at sequence_length=1."
+  fig10_fc:
+    description: "Reproduce the Figure 10 FC-only decoding results at sequence_length=1."
     phase: decode
     ops_mode: fc_only
     models:
@@ -22,7 +22,7 @@ studies:
     sequence_lengths: [1]
     batch_sizes: [1]
     aggregate_sequence1: true
-    output_subdir: fig9_fc
+    output_subdir: fig10_fc
     extra:
       reference_drop_methods:
         - figlut_2

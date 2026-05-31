@@ -21,7 +21,7 @@ MODEL_GROUPS = [
     ("LLaMA-3", ["llama3_8b"]),
 ]
 
-FIG9_METHODS = [
+FIG10_METHODS = [
     "systolic_array",
     "ant",
     "figna",
@@ -31,7 +31,7 @@ FIG9_METHODS = [
     "vqarray_2_decode",
 ]
 
-FIG9_METHOD_LABELS = {
+FIG10_METHOD_LABELS = {
     "systolic_array": "SA-A8W8",
     "ant": "ANT-A8W8",
     "figna": "FIGNA-A16W4",
@@ -68,9 +68,9 @@ def load_aggregated_sequence1(csv_path: str | Path) -> pd.DataFrame:
     return dataframe
 
 
-def plot_fig9_from_aggregated_csv(csv_path: str | Path, output_path: str | Path | None = None):
+def plot_fig10_from_aggregated_csv(csv_path: str | Path, output_path: str | Path | None = None):
     dataframe = load_aggregated_sequence1(csv_path)
-    figure_dataframe = dataframe[dataframe["method"].isin(FIG9_METHODS)].copy()
+    figure_dataframe = dataframe[dataframe["method"].isin(FIG10_METHODS)].copy()
 
     fig = plt.figure(figsize=(15, 8))
     grid = fig.add_gridspec(2, 2, width_ratios=[8, 2.2], height_ratios=[1, 1], hspace=0.55, wspace=0.15)
@@ -82,7 +82,7 @@ def plot_fig9_from_aggregated_csv(csv_path: str | Path, output_path: str | Path 
     _plot_latency_panel(figure_dataframe, latency_ax, speedup_ax)
     _plot_energy_panel(figure_dataframe, energy_ax, efficiency_ax)
 
-    fig.suptitle("Figure 9 Reproduction From Eva Outputs", fontsize=14, y=0.99)
+    fig.suptitle("Figure 10 Reproduction From Eva Outputs", fontsize=14, y=0.99)
     if output_path:
         output_path = Path(output_path)
         output_path.parent.mkdir(parents=True, exist_ok=True)
@@ -105,14 +105,14 @@ def _plot_latency_panel(dataframe: pd.DataFrame, latency_ax, speedup_ax) -> None
         cursor += 0.8
 
     ordered_models = [model for _, models in MODEL_GROUPS for model in models]
-    for idx, method in enumerate(FIG9_METHODS):
+    for idx, method in enumerate(FIG10_METHODS):
         values = [
             float(
                 dataframe[(dataframe["model"] == model) & (dataframe["method"] == method)]["total_time_s"].iloc[0]
             )
             for model in ordered_models
         ]
-        offset = (idx - (len(FIG9_METHODS) - 1) / 2) * bar_width
+        offset = (idx - (len(FIG10_METHODS) - 1) / 2) * bar_width
         latency_ax.bar(
             np.array(x_positions)[: len(ordered_models)] + offset,
             values,
@@ -120,7 +120,7 @@ def _plot_latency_panel(dataframe: pd.DataFrame, latency_ax, speedup_ax) -> None
             color=METHOD_COLORS[method],
             edgecolor="black",
             linewidth=0.3,
-            label=FIG9_METHOD_LABELS[method],
+            label=FIG10_METHOD_LABELS[method],
         )
 
     latency_ax.set_ylabel("Latency (s)")
@@ -136,20 +136,20 @@ def _plot_latency_panel(dataframe: pd.DataFrame, latency_ax, speedup_ax) -> None
 
     baseline = dataframe[dataframe["method"] == "systolic_array"].set_index("model")["total_time_s"]
     geomean_speedup = []
-    for method in FIG9_METHODS:
+    for method in FIG10_METHODS:
         method_times = dataframe[dataframe["method"] == method].set_index("model")["total_time_s"]
         ratios = baseline.loc[method_times.index] / method_times
         geomean_speedup.append(float(np.exp(np.log(ratios).mean())))
 
     speedup_ax.bar(
-        range(len(FIG9_METHODS)),
+        range(len(FIG10_METHODS)),
         geomean_speedup,
-        color=[METHOD_COLORS[method] for method in FIG9_METHODS],
+        color=[METHOD_COLORS[method] for method in FIG10_METHODS],
         edgecolor="black",
         linewidth=0.3,
     )
-    speedup_ax.set_xticks(range(len(FIG9_METHODS)))
-    speedup_ax.set_xticklabels([ENERGY_METHOD_SHORT[method] for method in FIG9_METHODS], rotation=90)
+    speedup_ax.set_xticks(range(len(FIG10_METHODS)))
+    speedup_ax.set_xticklabels([ENERGY_METHOD_SHORT[method] for method in FIG10_METHODS], rotation=90)
     speedup_ax.set_ylabel("Norm. Speedup")
     speedup_ax.set_title("Speedup\nGEOMEAN")
     speedup_ax.grid(axis="y", alpha=0.25)
@@ -160,9 +160,9 @@ def _plot_energy_panel(dataframe: pd.DataFrame, energy_ax, efficiency_ax) -> Non
     per_model_offsets = np.arange(len(ordered_models))
     method_width = 0.11
 
-    for idx, method in enumerate(FIG9_METHODS):
+    for idx, method in enumerate(FIG10_METHODS):
         method_df = dataframe[dataframe["method"] == method].set_index("model").loc[ordered_models]
-        offset = (idx - (len(FIG9_METHODS) - 1) / 2) * method_width
+        offset = (idx - (len(FIG10_METHODS) - 1) / 2) * method_width
         x = per_model_offsets + offset
         energy_ax.bar(x, method_df["dram_energy_j"], width=method_width, color="#4c78a8", label="DRAM" if idx == 0 else "")
         energy_ax.bar(
@@ -196,20 +196,20 @@ def _plot_energy_panel(dataframe: pd.DataFrame, energy_ax, efficiency_ax) -> Non
 
     baseline = dataframe[dataframe["method"] == "systolic_array"].set_index("model")["total_energy_j"]
     geomean_efficiency = []
-    for method in FIG9_METHODS:
+    for method in FIG10_METHODS:
         method_energy = dataframe[dataframe["method"] == method].set_index("model")["total_energy_j"]
         ratios = baseline.loc[method_energy.index] / method_energy
         geomean_efficiency.append(float(np.exp(np.log(ratios).mean())))
 
     efficiency_ax.bar(
-        range(len(FIG9_METHODS)),
+        range(len(FIG10_METHODS)),
         geomean_efficiency,
-        color=[METHOD_COLORS[method] for method in FIG9_METHODS],
+        color=[METHOD_COLORS[method] for method in FIG10_METHODS],
         edgecolor="black",
         linewidth=0.3,
     )
-    efficiency_ax.set_xticks(range(len(FIG9_METHODS)))
-    efficiency_ax.set_xticklabels([ENERGY_METHOD_SHORT[method] for method in FIG9_METHODS], rotation=90)
+    efficiency_ax.set_xticks(range(len(FIG10_METHODS)))
+    efficiency_ax.set_xticklabels([ENERGY_METHOD_SHORT[method] for method in FIG10_METHODS], rotation=90)
     efficiency_ax.set_ylabel("Norm. Energy Efficiency")
     efficiency_ax.set_title("Energy Efficiency\nGEOMEAN")
     efficiency_ax.grid(axis="y", alpha=0.25)

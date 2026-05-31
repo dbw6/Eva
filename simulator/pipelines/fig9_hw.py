@@ -41,7 +41,7 @@ POWER_COLUMNS = [
     "dram_power_w",
 ]
 
-TABLE_VI_COLUMNS = [
+TABLE_VIII_COLUMNS = [
     "method",
     "architecture",
     "pe_array",
@@ -60,8 +60,8 @@ TABLE_VI_COLUMNS = [
     "energy_efficiency_norm",
 ]
 
-FIG10_AREA_COLUMNS = ["component", "area_mm2", "total_area_mm2"]
-FIG10_POWER_COLUMNS = ["component", "power_w", "total_power_w"]
+FIG9_AREA_COLUMNS = ["component", "area_mm2", "total_area_mm2"]
+FIG9_POWER_COLUMNS = ["component", "power_w", "total_power_w"]
 
 
 class HardwareCharacterizationPipeline:
@@ -148,9 +148,9 @@ class HardwareCharacterizationPipeline:
         energy_csv = write_rows(energy_rows, output_dir / "energy.csv", ENERGY_COLUMNS)
         power_csv = write_rows(power_rows, output_dir / "power.csv", POWER_COLUMNS)
 
-        table_vi_csv = self._write_table_vi(output_dir, cycles_rows, power_rows, model_registry, method_registry, study)
-        fig10_area_csv = self._write_fig10_area(output_dir)
-        fig10_power_csv = self._write_fig10_power(output_dir, power_rows, power_detail_by_method)
+        table_viii_csv = self._write_table_viii(output_dir, cycles_rows, power_rows, model_registry, method_registry, study)
+        fig9_area_csv = self._write_fig9_area(output_dir)
+        fig9_power_csv = self._write_fig9_power(output_dir, power_rows, power_detail_by_method)
 
         return StudyArtifacts(
             output_dir=output_dir,
@@ -159,13 +159,13 @@ class HardwareCharacterizationPipeline:
             power_csv=power_csv,
             verification_json=None,
             reports={
-                "table_vi_csv": table_vi_csv,
-                "fig10_area_csv": fig10_area_csv,
-                "fig10_power_csv": fig10_power_csv,
+                "table_viii_csv": table_viii_csv,
+                "fig9_area_csv": fig9_area_csv,
+                "fig9_power_csv": fig9_power_csv,
             },
         )
 
-    def _write_table_vi(
+    def _write_table_viii(
         self,
         output_dir: Path,
         cycles_rows: list[dict],
@@ -228,28 +228,28 @@ class HardwareCharacterizationPipeline:
         dataframe["energy_efficiency_norm"] = dataframe["energy_efficiency_gops_per_w"] / float(
             baseline["energy_efficiency_gops_per_w"]
         )
-        dataframe = dataframe[TABLE_VI_COLUMNS]
+        dataframe = dataframe[TABLE_VIII_COLUMNS]
 
-        table_vi_csv = output_dir / "table_vi.csv"
-        table_vi_csv.parent.mkdir(parents=True, exist_ok=True)
-        dataframe.to_csv(table_vi_csv, index=False)
-        return table_vi_csv
+        table_viii_csv = output_dir / "table_viii.csv"
+        table_viii_csv.parent.mkdir(parents=True, exist_ok=True)
+        dataframe.to_csv(table_viii_csv, index=False)
+        return table_viii_csv
 
     @staticmethod
-    def _write_fig10_area(output_dir: Path) -> Path:
+    def _write_fig9_area(output_dir: Path) -> Path:
         hardware = load_hardware_config()
         eva_components = hardware["architectures"]["vqarray_2_decode"]["area_components_mm2"]
         total_area = sum(float(value) for value in eva_components.values())
         rows = [
             {"component": component, "area_mm2": float(eva_components[component]), "total_area_mm2": total_area}
-            for component in hardware["architectures"]["vqarray_2_decode"]["fig10_component_order"]
+            for component in hardware["architectures"]["vqarray_2_decode"]["fig9_component_order"]
         ]
-        fig10_area_csv = output_dir / "fig10_area_breakdown.csv"
-        write_rows(rows, fig10_area_csv, FIG10_AREA_COLUMNS)
-        return fig10_area_csv
+        fig9_area_csv = output_dir / "fig9_area_breakdown.csv"
+        write_rows(rows, fig9_area_csv, FIG9_AREA_COLUMNS)
+        return fig9_area_csv
 
     @staticmethod
-    def _write_fig10_power(output_dir: Path, power_rows: list[dict], power_detail_by_method: dict[str, dict[str, float]]) -> Path:
+    def _write_fig9_power(output_dir: Path, power_rows: list[dict], power_detail_by_method: dict[str, dict[str, float]]) -> Path:
         power_df = pd.DataFrame(power_rows).set_index("method")
         eva_power = power_df.loc["vqarray_2_decode"]
         details = power_detail_by_method["vqarray_2_decode"]
@@ -264,9 +264,9 @@ class HardwareCharacterizationPipeline:
             {"component": "buffer", "power_w": float(eva_power["sram_power_w"]), "total_power_w": float(eva_power["total_power_w"])},
             {"component": "dram", "power_w": float(eva_power["dram_power_w"]), "total_power_w": float(eva_power["total_power_w"])},
         ]
-        fig10_power_csv = output_dir / "fig10_power_breakdown.csv"
-        write_rows(rows, fig10_power_csv, FIG10_POWER_COLUMNS)
-        return fig10_power_csv
+        fig9_power_csv = output_dir / "fig9_power_breakdown.csv"
+        write_rows(rows, fig9_power_csv, FIG9_POWER_COLUMNS)
+        return fig9_power_csv
 
     @staticmethod
     def _count_total_ops(

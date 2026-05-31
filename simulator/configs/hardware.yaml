@@ -1,5 +1,5 @@
 hardware_reports:
-  table_vi_fig10:
+  table_viii_fig9:
     model: llama_2_7b
     sequence_length: 1
     baseline_method: systolic_array
@@ -45,7 +45,7 @@ hardware_reports:
           epilogue: 0.050411088
           sfu: 0.063380772
           buffer: 0.8192560712015196
-        fig10_component_order:
+        fig9_component_order:
           - array
           - epilogue
           - sfu

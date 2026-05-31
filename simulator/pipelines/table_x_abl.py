@@ -13,7 +13,7 @@ from simulator.specs import RunnerConfig, StudyArtifacts, StudySpec
 from simulator.utils import Stats, ceil_a_by_b
 
 
-TABLE_VII_COLUMNS = [
+TABLE_X_COLUMNS = [
     "entry",
     "workbook_label",
     "total_cycles",
@@ -575,12 +575,12 @@ class AblationPipeline:
         )
         dataframe["workbook_label"] = dataframe["workbook_label"].fillna(dataframe["entry"])
         dataframe["area_source"] = "normalized_array_area"
-        dataframe = dataframe[TABLE_VII_COLUMNS]
+        dataframe = dataframe[TABLE_X_COLUMNS]
 
-        table_csv = output_dir / "table_vii.csv"
+        table_csv = output_dir / "table_x.csv"
         dataframe.to_csv(table_csv, index=False)
 
-        cycles_csv = write_rows(dataframe.to_dict(orient="records"), output_dir / "cycles.csv", TABLE_VII_COLUMNS)
+        cycles_csv = write_rows(dataframe.to_dict(orient="records"), output_dir / "cycles.csv", TABLE_X_COLUMNS)
         area_csv = write_rows(dataframe[AREA_COLUMNS].to_dict(orient="records"), output_dir / "energy.csv", AREA_COLUMNS)
         speed_csv = write_rows(dataframe[SPEED_COLUMNS].to_dict(orient="records"), output_dir / "power.csv", SPEED_COLUMNS)
 
@@ -590,7 +590,7 @@ class AblationPipeline:
             energy_csv=area_csv,
             power_csv=speed_csv,
             verification_json=None,
-            reports={"table_vii_csv": table_csv},
+            reports={"table_x_csv": table_csv},
         )
 
     @staticmethod

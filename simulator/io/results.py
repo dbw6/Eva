@@ -3,7 +3,7 @@ from pathlib import Path
 import pandas as pd
 
 
-FIG9_MODEL_ORDER = [
+FIG10_MODEL_ORDER = [
     "llama_7b",
     "llama_13b",
     "llama_2_7b",
@@ -13,7 +13,7 @@ FIG9_MODEL_ORDER = [
     "llama3_8b",
 ]
 
-FIG9_METHOD_ORDER = [
+FIG10_METHOD_ORDER = [
     "systolic_array",
     "ant",
     "figna",
@@ -62,8 +62,8 @@ def aggregate_sequence1(
         how="left",
     )
 
-    merged["model"] = pd.Categorical(merged["model"], categories=FIG9_MODEL_ORDER, ordered=True)
-    merged["method"] = pd.Categorical(merged["method"], categories=FIG9_METHOD_ORDER, ordered=True)
+    merged["model"] = pd.Categorical(merged["model"], categories=FIG10_MODEL_ORDER, ordered=True)
+    merged["method"] = pd.Categorical(merged["method"], categories=FIG10_METHOD_ORDER, ordered=True)
     merged = merged[
         [
             "model",

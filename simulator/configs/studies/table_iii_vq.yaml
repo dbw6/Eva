@@ -1,6 +1,6 @@
 studies:
-  table_ix_vq:
-    description: "Validate EVA GPTVQ latency against the Table IX trade-off rows."
+  table_iii_vq:
+    description: "Validate EVA GPTVQ latency against the Table III trade-off rows."
     phase: decode
     ops_mode: fc_only
     models:
@@ -16,7 +16,7 @@ studies:
     sequence_lengths: [1]
     batch_sizes: [1]
     aggregate_sequence1: false
-    output_subdir: table_ix_vq
+    output_subdir: table_iii_vq
     extra:
       baseline_method: vqarray_2_decode
       normalized_tolerance: 0.02

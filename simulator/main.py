@@ -5,7 +5,7 @@ from simulator.runner import build_runner_config, run
 
 def build_arg_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description="EVA unified simulator runner")
-    parser.add_argument("--study", type=str, default="fig9_fc", help="Named study preset to execute.")
+    parser.add_argument("--study", type=str, default="fig10_fc", help="Named study preset to execute.")
     parser.add_argument("--output-dir", type=str, default="simulator/output", help="Base output directory.")
     parser.add_argument("--models", type=str, default=None, help="Comma-separated model overrides.")
     parser.add_argument("--methods", type=str, default=None, help="Comma-separated method overrides.")

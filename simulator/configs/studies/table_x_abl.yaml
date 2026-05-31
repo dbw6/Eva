@@ -1,6 +1,6 @@
 studies:
-  table_vii_abl:
-    description: "Reproduce TABLE VII by simulating the ablation speedup rows and using workbook-backed normalized array area."
+  table_x_abl:
+    description: "Reproduce TABLE X by simulating the ablation speedup rows and using workbook-backed normalized array area."
     phase: decode
     ops_mode: fc_only
     models:
@@ -9,7 +9,7 @@ studies:
     sequence_lengths: [1]
     batch_sizes: [1]
     aggregate_sequence1: false
-    output_subdir: table_vii_abl
+    output_subdir: table_x_abl
     extra:
       aqlm_model_name: "ISTA-DASLab/Llama-2-7b-AQLM-2Bit-2x8-hf"
       layer_number: 15

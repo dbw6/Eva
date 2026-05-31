@@ -6,7 +6,7 @@ from simulator.models import ModelRegistry
 from simulator.specs import RunnerConfig, StudyArtifacts, StudySpec
 
 
-TABLE_VIII_COLUMNS = [
+TABLE_IX_COLUMNS = [
     "model",
     "dataset",
     "tokenizer",
@@ -51,9 +51,9 @@ class DatasetStatsPipeline:
             )
 
         dataframe = pd.DataFrame(rows)
-        table_csv = output_dir / "table_viii.csv"
+        table_csv = output_dir / "table_ix.csv"
         table_csv.parent.mkdir(parents=True, exist_ok=True)
-        dataframe[TABLE_VIII_COLUMNS].to_csv(table_csv, index=False)
+        dataframe[TABLE_IX_COLUMNS].to_csv(table_csv, index=False)
 
         return StudyArtifacts(
             output_dir=output_dir,
@@ -61,5 +61,5 @@ class DatasetStatsPipeline:
             energy_csv=table_csv,
             power_csv=table_csv,
             verification_json=None,
-            reports={"table_viii_csv": table_csv},
+            reports={"table_ix_csv": table_csv},
         )

@@ -8,7 +8,7 @@ from simulator.pipelines import (
     DatasetStatsPipeline,
     DsePipeline,
     EndToEndPipeline,
-    Fig9Pipeline,
+    Fig10Pipeline,
     GptvqValidationPipeline,
     HardwareCharacterizationPipeline,
     IndexAnalysisPipeline,
@@ -28,13 +28,13 @@ def run(config: RunnerConfig) -> StudyArtifacts:
     if config.ops_mode is None:
         config.ops_mode = study.ops_mode
 
-    if config.study == "fig9_fc":
-        return Fig9Pipeline().run(config, study, model_registry, method_registry)
+    if config.study == "fig10_fc":
+        return Fig10Pipeline().run(config, study, model_registry, method_registry)
 
     if config.study == "fig8_dse":
         return DsePipeline().run(config, study, model_registry, method_registry)
 
-    if config.study == "fig10_hw":
+    if config.study == "fig9_hw":
         return HardwareCharacterizationPipeline().run(config, study, model_registry, method_registry)
 
     if config.study == "fig11_batch":
@@ -46,13 +46,13 @@ def run(config: RunnerConfig) -> StudyArtifacts:
     if config.study == "fig14_index":
         return IndexAnalysisPipeline().run(config, study, model_registry, method_registry)
 
-    if config.study == "table_vii_abl":
+    if config.study == "table_x_abl":
         return AblationPipeline().run(config, study, model_registry, method_registry)
 
-    if config.study == "table_viii_data":
+    if config.study == "table_ix_data":
         return DatasetStatsPipeline().run(config, study, model_registry, method_registry)
 
-    if config.study == "table_ix_vq":
+    if config.study == "table_iii_vq":
         return GptvqValidationPipeline().run(config, study, model_registry, method_registry)
 
     raise ValueError(f"Unsupported study: {config.study}")

@@ -34,7 +34,7 @@ def resolve_repo_path(raw_path: str | Path) -> Path:
     return REPO_ROOT / path
 
 
-def load_hardware_config(report_name: str = "table_vi_fig10", config_path: str | Path | None = None) -> dict:
+def load_hardware_config(report_name: str = "table_viii_fig9", config_path: str | Path | None = None) -> dict:
     path = resolve_repo_path(config_path or (CONFIG_ROOT / "hardware.yaml"))
     payload = load_yaml(path)
     return payload["hardware_reports"][report_name]

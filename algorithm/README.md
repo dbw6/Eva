@@ -1,6 +1,6 @@
 # EVA Algorithm Evaluation (Optional)
 
-This directory contains scripts to reproduce the algorithm-level accuracy results from the EVA paper (Tables III, IV, and X) using pre-trained AQLM-quantized model checkpoints.
+This directory contains scripts to reproduce the algorithm-level accuracy results from the EVA paper (Tables V, VI, and VII) using pre-trained AQLM-quantized model checkpoints.
 
 > **Note:** EVA's algorithm (AQLM-based quantization) has **not** been specifically optimized. The primary contribution of this work is the hardware accelerator design. This evaluation is provided as an optional artifact for completeness.
 
@@ -56,16 +56,16 @@ All checkpoints are downloaded automatically from HuggingFace on first run.
 
 | Model | Bits | HF Path | Table |
 |-------|------|---------|-------|
-| Llama-2-7B  | 4 | `dbw6/Llama-2-7b-AQLM-4Bit-4x8-hf` | III, IV |
-| Llama-2-7B  | 2 | `ISTA-DASLab/Llama-2-7b-AQLM-2Bit-2x8-hf` | III, IV |
-| Llama-2-13B | 4 | `dbw6/Llama-2-13b-AQLM-4Bit-4x8-hf` | III |
-| Llama-2-13B | 2 | `ISTA-DASLab/Llama-2-13b-AQLM-2Bit-2x8-hf` | III |
-| Mixtral-8x7B | 4 | `dbw6/Mixtral-8x7B-AQLM-4Bit-4x8-hf` | X |
-| Mixtral-8x7B | 2 | `dbw6/Mixtral-8x7B-AQLM-2Bit-2x8-hf` | X |
-| Qwen3-30B-A3B | 4 | `dbw6/Qwen3-30B-A3B-Instruct-2507-AQLM-4Bit-4x8-hf` | X |
-| Qwen3-30B-A3B | 2 | `dbw6/Qwen3-30B-A3B-Instruct-2507-AQLM-2Bit-2x8-hf` | X |
+| Llama-2-7B  | 4 | `dbw6/Llama-2-7b-AQLM-4Bit-4x8-hf` | V, VI |
+| Llama-2-7B  | 2 | `ISTA-DASLab/Llama-2-7b-AQLM-2Bit-2x8-hf` | V, VI |
+| Llama-2-13B | 4 | `dbw6/Llama-2-13b-AQLM-4Bit-4x8-hf` | V |
+| Llama-2-13B | 2 | `ISTA-DASLab/Llama-2-13b-AQLM-2Bit-2x8-hf` | V |
+| Mixtral-8x7B | 4 | `dbw6/Mixtral-8x7B-AQLM-4Bit-4x8-hf` | VII |
+| Mixtral-8x7B | 2 | `dbw6/Mixtral-8x7B-AQLM-2Bit-2x8-hf` | VII |
+| Qwen3-30B-A3B | 4 | `dbw6/Qwen3-30B-A3B-Instruct-2507-AQLM-4Bit-4x8-hf` | VII |
+| Qwen3-30B-A3B | 2 | `dbw6/Qwen3-30B-A3B-Instruct-2507-AQLM-2Bit-2x8-hf` | VII |
 
-## Step 10: TABLE III -- WikiText-2 Perplexity
+## Step 10: TABLE V -- WikiText-2 Perplexity
 
 Evaluate perplexity for Llama-2 7B/13B at 4-bit and 2-bit quantization:
 
@@ -94,7 +94,7 @@ CUDA_VISIBLE_DEVICES=<GPU_ID> python algorithm/eval_ppl.py \
 - **Expected runtime**: ~5--10 minutes per model (~30 minutes total)
 - **Expected outputs**: `algorithm/output/ppl_llama2_{7b,13b}_{2,4}bit.json`
 
-## Step 11: TABLE IV -- Llama-2-7B Downstream Accuracy
+## Step 11: TABLE VI -- Llama-2-7B Downstream Accuracy
 
 ```bash
 # Llama-2-7B 4-bit
@@ -117,7 +117,7 @@ CUDA_VISIBLE_DEVICES=<GPU_ID> PYTHONPATH=algorithm python algorithm/lmeval.py \
 - **Expected runtime**: ~30--45 minutes per model (~1.5 hours total)
 - **Expected outputs**: `algorithm/output/llama2_7b_{2,4}bit/results.json`
 
-## Step 12: TABLE X -- MoE Downstream Accuracy
+## Step 12: TABLE VII -- MoE Downstream Accuracy
 
 ```bash
 # Mixtral-8x7B 4-bit
@@ -172,18 +172,18 @@ Runtimes vary with GPU occupancy, checkpoint download speed, and CUDA extension 
 
 | Step | Evaluation | Measured Runtime |
 |------|------------|-----------------|
-| 10   | TABLE III (4 PPL evals)  | ~30 minutes |
-| 11   | TABLE IV (2 downstream)  | ~1.5 hours  |
-| 12   | TABLE X (6 downstream)   | ~4--6 hours |
+| 10   | TABLE V (4 PPL evals)    | ~30 minutes |
+| 11   | TABLE VI (2 downstream)  | ~1.5 hours  |
+| 12   | TABLE VII (6 downstream) | ~4--6 hours |
 |      | **Total**                | **~6--8 hours** |
 
 ## Expected Results
 
 | Paper Artifact | Output File(s) |
 |----------------|----------------|
-| TABLE III      | `algorithm/output/ppl_llama2_{7b,13b}_{2,4}bit.json` |
-| TABLE IV       | `algorithm/output/llama2_7b_{2,4}bit/results.json` |
-| TABLE X        | `algorithm/output/{mixtral,qwen3}_{2,4}bit/results.json` |
+| TABLE V        | `algorithm/output/ppl_llama2_{7b,13b}_{2,4}bit.json` |
+| TABLE VI       | `algorithm/output/llama2_7b_{2,4}bit/results.json` |
+| TABLE VII      | `algorithm/output/{mixtral,qwen3}_{2,4}bit/results.json` |
 
 ## Baseline Method References
 

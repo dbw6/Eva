@@ -17,11 +17,11 @@ MAX_JOBS="${MAX_JOBS:-4}"
 LOG_DIR="${LOG_DIR:-${OUTPUT_DIR}/logs/simulator}"
 
 PARALLEL_STUDIES=(
-  fig9_fc
-  fig10_hw
+  fig10_fc
+  fig9_hw
   fig8_dse
-  table_viii_data
-  table_ix_vq
+  table_ix_data
+  table_iii_vq
   fig11_batch
 )
 
@@ -46,7 +46,7 @@ for study in "${PARALLEL_STUDIES[@]}"; do
 done
 wait
 
-run_study table_vii_abl
+run_study table_x_abl
 run_study fig14_index
 
 echo "[simulator] starting e2e; log=${LOG_DIR}/e2e.log"

@@ -1,6 +1,6 @@
 studies:
-  table_viii_data:
-    description: "Compute TABLE VIII tokenizer length statistics."
+  table_ix_data:
+    description: "Compute TABLE IX tokenizer length statistics."
     phase: decode
     ops_mode: fc_only
     models: []
@@ -8,7 +8,7 @@ studies:
     sequence_lengths: [1]
     batch_sizes: [1]
     aggregate_sequence1: false
-    output_subdir: table_viii_data
+    output_subdir: table_ix_data
     extra:
       seed: 42
       tokenizers:
